@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js" lang="jp">
+
+<head>
+  <meta charset="utf-8">
+  <title>Lesson2</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../static/stylesheet.css">
+  <link rel="stylecheet" href="../static/form.css">
+  <link rel="stylesheet" href="../static/receipt.css">
+  <link rel="stylesheet" href="../static/responsive.css">
+  <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='receipt.css') }}">
+  <script src ="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="header-left">
+        <div id = "top-btn">
+          <img class="logo" src="../static/img/logo2.png">
+        </div>
+      </div>
+      <span class="fa fa-bars menu-icon"></span>
+      <div class="header-right">
+        <a href="#">MNIST</a>
+        <a href="#">Receipt</a>
+        <a href="form.html">Health Record</a>
+        <a href="#">Account</a>
+        <a class="scroll-btn" href="#history-scroll">history</a>
+
+        <a href="#" class="login" id="login-show">Login</a>
+      </div>
+    </div>
+  </header>
+
+
+  <div class='receipt'>
+    <h2>Receipt reader.</h2>
+    <p>The application would tell the store, then read total and date by Google Vison API.</p>
+    <form method='POST' enctype="multipart/form-data">
+        <input class='file_choose' type="file" name="file">
+        <input class='btn' value="submit!" type="submit">
+    </form>
+      {% if uploaded_image %}
+          <div class="upload_image">
+              <img src="{{uploaded_image}}", width=200>
+          </div>
+      {% else %}
+          <div class="upload_image">
+              <p>no file is uploaded</p>
+          </div>
+      {% endif %}
+
+      {% if store == "xx" %}
+
+      {% else %}
+          <div class='pred_store'>This receipt would be <span>{{ store }}</span>.</div>
+      {% endif %}
+  </div>
+
+  <div class="input-form">
+      <h3 class="section-title">Receipt information</h3>
+
+      <p>store</p>
+      <input type="text" value="{{ store }}">
+
+      <p>date</p>
+      <input type="text" value="{{ date }}">
+
+      <p>total price</p>
+      <input type="text" value="{{ price }}">
+
+      <p>category</p>
+      <select name="category", size="1">
+      <option value="">select</option>
+      <option value="item2">grocery</option>
+      <option value="item3">daily use</option>
+      <option value="item4">hobby</option>
+      </select>
+
+      <p>who</p>
+      <select name="who", size="1">
+      <option value="">select</option>
+      <option value="item2">Ken</option>
+      <option value="item3">Taro</option>
+      <option value="item4">Iso</option>
+      </select>
+
+      <p>points</p>
+      <input>
+
+      <p>note</p>
+      <input>
+
+
+      <p>write to spread sheet</p>
+      <input class="receipt-submit" type="submit" value="write">
+
+  </div>
+
+
+
+
+  <footer>
+    <div class="container">
+      <img src="../static/img/footer.png">
+      <p>May be later..</p>
+    </div>
+  </footer>
+<script src="script.js"></script>
+</body>
+
+
+</html>
+

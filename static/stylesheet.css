@@ -1,0 +1,332 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN";
+}
+
+a {
+  text-decoration: none;
+}
+
+.clear {
+  clear: left;
+}
+
+.container {
+  max-width: 1600px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+header {
+  height: 65px;
+  width: 100%;
+  background-color: rgba(34, 49, 52, 0.9);
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left {
+  float: left;
+}
+
+.header-right {
+  float: right;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all 0.5s;
+}
+
+.header-right a{
+  line-height: 65px;
+  padding: 0 25px;
+  color: white;
+  display: block;
+  float: left;
+}
+
+.header-right a:hover {
+  background-color: rgba(255, 255, 255, 0.5)
+}
+
+
+
+.menu-icon {
+  color: white;
+  float: right;
+  font-size: 25px;
+  padding: 21px 0;
+  display: none;
+}
+
+.logo {
+  height: 70px;
+  margin-top: auto;
+}
+
+
+.top-wrapper {
+  padding: 180px 0 100px 0;
+  background-image: url(../img/top.jpg);
+  color: white;
+  background-size: cover;
+  text-align: left;
+}
+
+.top-wrapper h1{
+  opacity: 0.8;
+  font-size: 40px;
+  letter-spacing: 5px;
+}
+
+.top-wrapper p {
+  opacity: 0.8;
+}
+
+.btn {
+  padding: 8px 20px;
+  color: black;
+  display: inline-block;
+  opacity: 0.7;
+  border-radius: 4px;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.signup {
+  background-color: #239b76;
+}
+
+.facebook {
+  background-color: #3b5998;
+  margin-right: 10px;
+}
+
+.twitter {
+  background-color: #55acee;
+}
+
+.btn-wrapper {
+  margin: 20px;
+}
+
+.btn-wrapper p {
+  margin: 10px;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+.lesson-wrapper {
+
+  padding-bottom: 80px;
+  background-color: #f7f7f7;
+  text-align: center;
+}
+
+.heading {
+  padding: 60px 0 30px 0;
+  color: #5f5f60;
+}
+
+.heading h2 {
+  font-weight: normal;
+}
+
+.lesson {
+  float: left;
+  width: 25%;
+}
+
+.lesson-icon {
+  position: relative;
+}
+
+.lesson-icon p {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  color: white;
+}
+
+.text-contents {
+  margin: 3% auto;
+  width: 80%;
+  font-size: 16px;
+  color: #b3aeb5;
+  display: none;
+}
+
+.text-active {
+  display: block;
+}
+
+.message-wrapper {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.message {
+  background-color: #5dca88;
+  padding: 15px 40px;
+  cursor: pointer;
+  box-shadow: 1px 2px #1a7940;
+}
+
+.message:active {
+  box-shadow: none;
+  position: relative;
+  top: 2px;
+  left: 1px;
+}
+
+.heading h3 {
+  font-weight: normal;
+}
+
+footer img {
+  width: 125px;
+}
+
+footer p {
+  color: #b3aeb5;
+  font-size: 14px;
+}
+
+footer {
+  padding-top: 10px;
+}
+
+
+/*Progate copy*/
+.login-modal-wrapper, .signup-modal-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: none;
+}
+
+.modal {
+  position: absolute;
+  top: 20%;
+  left: 34%;
+  background-color: #bbbbbb;
+  padding: 20px 0 40px;
+  border-radius: 10px;
+  width: 450px;
+  height: auto;
+  text-align: center;
+}
+
+.fa-times {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: rgba(128, 128, 128, 0.46);
+  cursor: pointer;
+}
+
+#signup-form, #login-form {
+  width: 100%;
+}
+
+#signup-form h2, #login-form h2 {
+  color: #5f5d60;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+}
+
+#signup-form input, #login-form input {
+  width: 320px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  padding: 12px 12px;
+  border: 1px solid #d0d5d8;
+  border-radius: 5px;
+}
+
+#submit-btn {
+  display: inline-block;
+  padding: 14px 140px;
+  background-color: #5dca88;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  margin: 10px auto;
+  cursor: pointer;
+}
+
+
+
+.lesson-wrapper {
+  height: 500px;
+  padding-bottom: 80px;
+  background-color: #f7f7f7;
+  text-align: center;
+}
+
+.heading {
+  padding-top: 60px;
+  padding-bottom: 30px;
+  color: #5f5d60;
+}
+
+.heading h2 {
+  font-weight: normal;
+}
+
+/*end of Progate copy*/
+
+
+.history-wrapper {
+  background-color: #e6ecf0;
+  text-align: center;
+  padding-bottom: 80px;
+  color: #5f5d60;
+}
+
+#history-list {
+  width: 500px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.history-list-item {
+  margin: 10px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+}
+
+.history-list-item h3{
+  font-size: 14px;
+}
+
+.history-list-item span{
+  position: absolute;
+  top: 0;
+  right: 5px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.update-item {
+  font-size: 12px;
+  padding: 5px 0px;
+  margin-bottom: 15px;
+  display: none;
+}

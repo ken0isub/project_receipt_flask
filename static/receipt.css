@@ -1,0 +1,40 @@
+body {
+  font-family: "Hiragino Maru Gothic ProN", sans-serif;
+  font-size: 14px;
+  color: #888;
+}
+
+h2, h3, h4, h5, h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.receipt {
+  width: 720px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 200px auto 300px auto;
+}
+
+.pred_store {
+    font-size: 20px;
+    color: #444444;
+    margin: 20px 0px 30px 0px;
+    text-align: center;
+}
+
+.pred_store span {
+    font-size: 25px;
+    font-weight: bold;
+    color: #bb4444;
+}
+
+form {
+    text-align: center;
+}
+
+.upload_image {
+    margin: 30px 0px 0px 0px;
+    text-align: center;
+}
