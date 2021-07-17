@@ -5,10 +5,11 @@ import io
 import numpy as np
 import os
 import re
-from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.preprocessing import image
+# from tensorflow.keras.models import Sequential, load_model
+# from tensorflow.keras.preprocessing import image
 from werkzeug.utils import secure_filename
-from receipt_functions import allowed_file, draw_boxes, get_sorted_lines, get_document_bounds, read_costco
+from receipt_prediction import allowed_file, predict_receipt
+from read_receipts import read_costco, draw_boxes, get_sorted_lines, get_document_bounds
 
 UPLOAD_FOLDER = "./static/uploads"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -36,14 +37,7 @@ def upload_file():
             price = 'failed'
             date_dt = 'failed'
 
-            # #predict the store from the receipt image
-            # img = image.load_img(filepath, grayscale=True)
-            # img = image.img_to_array(img)
-            # data = np.array([img])
-            # result = model.predict(data)[0]
-            # predicted = result.argmax()
-            # pred_store = classes[predicted]
-            pred_store = 'costco'
+            pred_store = predict_receipt(filepath, 'models/ML/model_svc.pickle')
 
             #get result from google vision API
             with io.open(filepath, 'rb') as image_file:
@@ -58,7 +52,7 @@ def upload_file():
 
             return render_template("index.html", store=pred_store, date=date_dt, price=price, uploaded_image=filepath)
 
-    return render_template("index.html", store="xx", date="input date", price="price")
+    return render_template("submit_to_sheet.html", store="xx", date="input date", price="price")
 
 if __name__ == '__main__':
     app.run()

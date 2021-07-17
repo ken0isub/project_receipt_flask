@@ -1,18 +1,25 @@
-from enum import Enum
-import cv2
 import datetime
+import cv2
+from enum import Enum
+
+def read_costco(response):
+    lines = get_sorted_lines(response)
+    receipt_rows = []
+    for line in lines:
+        texts = [i[2] for i in line]
+        texts = ''.join(texts)
+        receipt_rows.append(texts)
+    total_index = receipt_rows.index('合計') + 1
+    total_price = receipt_rows[total_index]
+    price = total_price.replace(',', '').replace('.', '')
+    costco_date = receipt_rows[-3].split('/')[:2]
+    costco_date_year = receipt_rows[-3].split('/')[2][:2]
+    costco_date.append(costco_date_year)
+    date_dt = datetime.datetime.strptime('/'.join(costco_date), '%m/%d/%y')
+    date_dt = date_dt.strftime('%Y/%m/%d')
+    return price, date_dt
 
 
-def allowed_file(filename, ALLOWED_EXTENSIONS):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-class FeatureType(Enum):
-    PAGE = 1
-    BLOCK = 2
-    PARA = 3
-    WORD = 4
-    SYMBOL = 5
 
 
 def draw_boxes(input_file, bounds):
@@ -27,6 +34,15 @@ def draw_boxes(input_file, bounds):
       cv2.line(img, p3, p4, (0, 255, 0), thickness=1, lineType=cv2.LINE_AA)
       cv2.line(img, p4, p1, (0, 255, 0), thickness=1, lineType=cv2.LINE_AA)
     return img
+
+
+class FeatureType(Enum):
+    PAGE = 1
+    BLOCK = 2
+    PARA = 3
+    WORD = 4
+    SYMBOL = 5
+
 
 
 def get_document_bounds(response, feature):
@@ -81,21 +97,3 @@ def get_sorted_lines(response):
     line.sort(key=lambda x: x[0])
     lines.append(line)
     return lines
-
-
-def read_costco(response):
-    lines = get_sorted_lines(response)
-    receipt_rows = []
-    for line in lines:
-        texts = [i[2] for i in line]
-        texts = ''.join(texts)
-        receipt_rows.append(texts)
-    total_index = receipt_rows.index('合計') + 1
-    total_price = receipt_rows[total_index]
-    price = total_price.replace(',', '').replace('.', '')
-    costco_date = receipt_rows[-3].split('/')[:2]
-    costco_date_year = receipt_rows[-3].split('/')[2][:2]
-    costco_date.append(costco_date_year)
-    date_dt = datetime.datetime.strptime('/'.join(costco_date), '%m/%d/%y')
-    date_dt = date_dt.strftime('%Y/%m/%d')
-    return price, date_dt

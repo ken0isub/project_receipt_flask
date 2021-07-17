@@ -71,7 +71,7 @@ header {
 
 .top-wrapper {
   padding: 180px 0 100px 0;
-  background-image: url(../img/top.jpg);
+  background-image: url(./img/top.jpg);
   color: white;
   background-size: cover;
   text-align: left;
@@ -329,4 +329,23 @@ footer {
   padding: 5px 0px;
   margin-bottom: 15px;
   display: none;
+}
+
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  /* justify-content: center; */
+  align-items: flex-end;
+  position: relative;
+}
+.receipt {
+  flex: 1;
+  text-align: center;
+}
+.input-form {
+  margin-right: 200px;
+  position: fixed;
+  right: 100px;
+  top: 150px;
 }
