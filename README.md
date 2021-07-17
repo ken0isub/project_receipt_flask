@@ -1,0 +1,1 @@
+# project_receipt_flask
