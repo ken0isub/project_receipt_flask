@@ -2,9 +2,20 @@ import cv2
 import pickle
 from data_prep import img_prep
 import numpy as np
+import os
 
 def allowed_file(filename, ALLOWED_EXTENSIONS):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def model_prediction(model_path, file_path):
+    with open(model_path, mode ='rb') as fp:
+        clf = pickle.load(fp)
+    img = cv2.imread(file_path)
+    img = img_prep(img, gray_scale=True)
+    X_sample = np.array(img)
+    X_sample = X_sample.flatten()
+    return clf.predict(X_sample.reshape(1, -1))[0]
 
 
 def predict_receipt(file_path, model_path):
@@ -13,38 +24,33 @@ def predict_receipt(file_path, model_path):
         for c in f:
             classes.append(c.rstrip())
 
-    with open(model_path, mode ='rb') as fp:
-        clf = pickle.load(fp)
+    ml_scores = []
+    with open('models/ml_scores.txt', 'r') as f:
+        for c in f:
+            ml_scores.append(c.rstrip())
 
-    img = cv2.imread(file_path)
-    img = img_prep(img, gray_scale=True)
-    X_sample = np.array(img)
-    X_sample = X_sample.flatten()
+    models_list = os.listdir(model_path)
 
-    prediction = clf.predict(X_sample.reshape(1, -1))[0]
+    prediction_1 = model_prediction(model_path + '/' + models_list[0], file_path)
+    prediction_2 = model_prediction(model_path + '/' + models_list[1], file_path)
+    prediction_3 = model_prediction(model_path + '/' + models_list[2], file_path)
+    prediction_4 = model_prediction(model_path + '/' + models_list[3], file_path)
+    prediction_5 = model_prediction(model_path + '/' + models_list[4], file_path)
 
-    return classes[prediction]
+    n_1 = np.zeros(len(classes))
+    n_1[prediction_1] = ml_scores[0]
 
+    n_2 = np.zeros(len(classes))
+    n_2[prediction_2] = ml_scores[1]
 
+    n_3 = np.zeros(len(classes))
+    n_3[prediction_3] = ml_scores[2]
 
+    n_4 = np.zeros(len(classes))
+    n_4[prediction_4] = ml_scores[3]
 
-# from statistics import mode
-# ans = ["ローソン", "ローソン", "セブン", "セブン"]
-#
-#
-# print(mode(ans))
+    n_5 = np.zeros(len(classes))
+    n_5[prediction_5] = ml_scores[4]
 
-# import numpy as np
-# def check(l):
-#     arr =np.array([0,0,0])
-#     for i in l:
-#         if i=="セブン":
-#             arr[0]+=1
-#         elif i=="ローソン":
-#             arr[1]+=1
-#         else:
-#             arr[2]+=1
-#     return np.random.choice([i for i, x in enumerate(arr) if x == max(arr)] ,1)
-# l=["セブン","セブン","ローソン","ローソン"]
-# check(l)
-# print(check(l))
+    pred_combined = n_1 + n_2 + n_3 + n_4 + n_5
+    return classes[np.argmax(pred_combined)]

@@ -131,3 +131,4 @@ dmypy.json
 models/
 static/uploads/
 spread_sheet.py
+code_test.py

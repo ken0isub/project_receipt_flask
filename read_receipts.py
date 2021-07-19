@@ -1,25 +1,24 @@
 import datetime
 import cv2
 from enum import Enum
+import re
 
 def read_costco(response):
-    lines = get_sorted_lines(response)
-    receipt_rows = []
-    for line in lines:
-        texts = [i[2] for i in line]
-        texts = ''.join(texts)
-        receipt_rows.append(texts)
-    total_index = receipt_rows.index('合計') + 1
-    total_price = receipt_rows[total_index]
-    price = total_price.replace(',', '').replace('.', '')
-    costco_date = receipt_rows[-3].split('/')[:2]
-    costco_date_year = receipt_rows[-3].split('/')[2][:2]
-    costco_date.append(costco_date_year)
-    date_dt = datetime.datetime.strptime('/'.join(costco_date), '%m/%d/%y')
+    costco_lines = response.text_annotations[0].description.rsplit()
+    total_price = costco_lines[costco_lines.index('合計') + 1].replace(',', '').replace('.', '')
+    buy_date = [s for s in costco_lines if re.match(r'\d+/\d+/\d+', s)][0]
+    date_dt = datetime.datetime.strptime(buy_date, '%m/%d/%y')
     date_dt = date_dt.strftime('%Y/%m/%d')
-    return price, date_dt
+    return total_price, date_dt
 
-
+def read_seven(response):
+    seven_lines = response.text_annotations[0].description.splitlines()
+    seven_total = [s for s in seven_lines if s.startswith('合計')][0]
+    total_price = int(''.join([s for s in seven_total if re.match(r'\d', s)]))
+    buy_date = ([s for s in seven_lines if re.match(r'\d+年\d+月\d+日', s)][0][:11])
+    date_dt = datetime.datetime.strptime(buy_date, '%Y年%m月%d日')
+    date_dt = date_dt.strftime('%Y/%m/%d')
+    return total_price, date_dt
 
 
 def draw_boxes(input_file, bounds):

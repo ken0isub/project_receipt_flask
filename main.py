@@ -37,7 +37,7 @@ def upload_file():
             price = 'failed'
             date_dt = 'failed'
 
-            pred_store = predict_receipt(filepath, 'models/ML/model_svc.pickle')
+            pred_store = predict_receipt(filepath, 'models/ML/')
 
             #get result from google vision API
             with io.open(filepath, 'rb') as image_file:
@@ -52,7 +52,7 @@ def upload_file():
 
             return render_template("index.html", store=pred_store, date=date_dt, price=price, uploaded_image=filepath)
 
-    return render_template("submit_to_sheet.html", store="xx", date="input date", price="price")
+    return render_template("index.html", store="xx", date="input date", price="price")
 
 if __name__ == '__main__':
     app.run()
